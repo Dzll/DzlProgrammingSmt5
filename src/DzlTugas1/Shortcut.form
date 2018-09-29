@@ -89,7 +89,7 @@
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="chooseLoc1" max="32767" attributes="0"/>
                                                   <Component id="chooseLoc2" max="32767" attributes="0"/>
-                                                  <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jButton2" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabel7" min="-2" pref="321" max="-2" attributes="0"/>
@@ -285,7 +285,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Copy Paste File"/>
+            <Property name="text" type="java.lang.String" value="Copas File"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>

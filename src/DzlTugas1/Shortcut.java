@@ -8,11 +8,17 @@ package DzlTugas1;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 /**
  *
@@ -121,7 +127,7 @@ public class Shortcut extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(0, 190, 242));
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jButton2.setText("Copy Paste File");
+        jButton2.setText("Copas File");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -250,7 +256,7 @@ public class Shortcut extends javax.swing.JFrame {
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(chooseLoc1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(chooseLoc2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGap(18, 18, 18)
                                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -408,14 +414,22 @@ public class Shortcut extends javax.swing.JFrame {
         String ekst = ekstensiFile(new File(filePath));
         File original = new File(filePath);
         String noEks = noEkstensiFile(new File(filePath));
-        
         File copyFile = new File(original.getParent() , noEks.toString() + " - Copy" + ekst.toString());
         System.out.println(filePath);
         System.out.println(copyFile);
         System.out.println(ekst); //Ambil Ekstensi File
         
         if(copyFile.exists()){
-            JOptionPane.showMessageDialog(null, "File ' " + copyFile.getName() + " ' sudah ada");
+            int confirm = JOptionPane.showConfirmDialog(null, "Replace File?? \n" + filePath,"WARNING", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if(confirm == 0){
+                try{
+                Files.copy(original.toPath(), copyFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                }catch(Exception e){
+                    System.err.println("Error!!" + e.getMessage());
+                    System.err.println(e);
+                }
+                System.out.println("Replace File : " + filePath);
+            }
         }else{
             try{
                 Files.copy(original.toPath(), copyFile.toPath());
