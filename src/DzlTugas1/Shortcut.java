@@ -455,7 +455,7 @@ public class Shortcut extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         // New location cut files
-        choos.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
+        choos.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
         int returnVal = choos.showOpenDialog( this );
         
         filePath = ( choos.getSelectedFile().toString());
@@ -469,7 +469,7 @@ public class Shortcut extends javax.swing.JFrame {
         OutputStream out = null;
         boolean noSelect = false;
 
-        if(fileee.getText().equals("") || pslabel.getText().equals("Pilih File")){
+        if(fileee.getText().equals("") || fileee.getText().equals("Pilih File")){
             noSelect = true;
             JOptionPane.showMessageDialog(null, "Pilih file terlebih dahulu !!");
         }
@@ -514,43 +514,47 @@ public class Shortcut extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         // Paste Location
-        choos.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
-        int returnVal = choos.showOpenDialog( this );
-        
-        filePath = ( choos.getSelectedFile().toString());
-        pslabel.setText(filePath);
-        
-        
-        // Proses Paste File
-        InputStream in = null;
-        OutputStream out = null;
-        boolean noSelect = false;
-        
-        try{
-            File original = new File(kopi);
-            File copyFile = new File(pslabel.getText() + "\\" + original.getName());
-            System.out.println(original);
-            System.out.println("Kopi Lokasi : " + copyFile);
+        if(cplabel.getText().equals("") || cplabel.getText().equals("File")){
+            JOptionPane.showMessageDialog(null, "Pilih Copy dahulu!!");
+        }else{
+            choos.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
+            int returnVal = choos.showOpenDialog( this );
 
-            in = new FileInputStream(original);
-            out = new FileOutputStream(copyFile);
+            filePath = ( choos.getSelectedFile().toString());
+            pslabel.setText(filePath);
 
-            byte[] buffer = new byte[1024];
+            // Prosese
+            // Proses Paste File
+            InputStream in = null;
+            OutputStream out = null;
+            boolean noSelect = false;
+            
+            try{
+                File original = new File(kopi);
+                File copyFile = new File(pslabel.getText() + "\\" + original.getName());
+                System.out.println(original);
+                System.out.println("Kopi Lokasi : " + copyFile);
 
-            int length;
-            while((length = in.read(buffer)) > 0){
-                out.write(buffer, 0, length);
-            }
+                in = new FileInputStream(original);
+                out = new FileOutputStream(copyFile);
 
-            in.close();
-            out.close();
+                byte[] buffer = new byte[1024];
 
-            JOptionPane.showMessageDialog(null, "File berhasil di copy \n"
-                    + "File copy : " + copyFile);
+                int length;
+                while((length = in.read(buffer)) > 0){
+                    out.write(buffer, 0, length);
+                }
+
+                in.close();
+                out.close();
+
+                JOptionPane.showMessageDialog(null, "File berhasil di copy \n"
+                        + "File copy : " + copyFile);
             }catch(Exception e){
                 System.err.println("Error!!" + e.getMessage());
                 System.err.println(e);
             }
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
